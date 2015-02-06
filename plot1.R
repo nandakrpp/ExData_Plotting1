@@ -27,6 +27,11 @@ df <- read.csv("household_power_consumption.txt", header=TRUE, sep=";",
 ## Extract data only from 2 dates of interest W/O date conversion
 df <- df[df$Date %in% c("1/2/2007","2/2/2007") ,] 
 
+
+## Open png graphic device
+png("plot1.png", height=480, width=480) # This function saves but not plots the plot on the Plots window
+
+
 ## Plot data from Global_active_power on x-axis with its label defined and
 ## frequency of each data value on y-axis with automatically added label. Also 
 ## add main title to the plot
@@ -35,6 +40,5 @@ df <- df[df$Date %in% c("1/2/2007","2/2/2007") ,]
 hist(df$Global_active_power, main="Global Active Power", 
      xlab="Global Active Power (kilowatts)",  col="Red")
 
-## Copy the plot into a png file
-dev.copy(png, file="plot1.png", height=480, width=480) # This function saves and also plots the plot on the Plots window
-dev.off() # close the png file device
+## Close png graphic device
+dev.off()

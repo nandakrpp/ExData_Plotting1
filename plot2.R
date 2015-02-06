@@ -25,12 +25,15 @@ df <- df[df$Date %in% c("1/2/2007","2/2/2007"), ]
 datetime <- strptime(paste(df$Date, df$Time, sep=" "), "%d/%m/%Y %H:%M:%S")
 
 
-## Plot data from Global_active_power x-asix w/ label suppressed and datetime 
+## Open png graphic device
+png("plot2.png", height=480, width=480) # This function saves but not plots the plot on the Plots window
+
+
+## Plot data from Global_active_power on x-asix w/ label suppressed and datetime 
 ## on y-axis with its label
 plot(datetime, df$Global_active_power, type="l", xlab="",
      ylab="Global Active Power (kilowatts)") 
 
 
-## Copy the plot into a png file
-dev.copy(png, file="plot2.png", height=480, width=480) # This function saves and also plots the plot on the Plots window
-dev.off() # close the png file device
+## Close png graphic device
+dev.off()

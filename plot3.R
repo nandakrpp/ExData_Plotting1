@@ -28,9 +28,13 @@ df <- read.csv("household_power_consumption.txt", header=TRUE, sep=";",
 df <- df[df$Date %in% c("1/2/2007","2/2/2007"), ] 
 
 
-## Convert date and time variables into character variable of 
+## Convert date and time variables into character variables of 
 ## "2007-02-01 00:00:00 GMT" format and contatenate them in a vector
 datetime <- strptime(paste(df$Date, df$Time, sep=" "), "%d/%m/%Y %H:%M:%S")
+
+
+## Open png graphic device
+png("plot3.png", height=480, width=480) # This function saves but not plots the plot on the Plots window
 
 
 ## Plot data from 3 Sub Meterings on y-axis and datetime of usages on x-asix
@@ -42,14 +46,10 @@ datetime <- strptime(paste(df$Date, df$Time, sep=" "), "%d/%m/%Y %H:%M:%S")
 plot(datetime, df$Sub_metering_1, type="l", xlab="", ylab="Energy sub metering")
 lines(datetime, df$Sub_metering_2, type="l", col="red") 
 lines(datetime, df$Sub_metering_3, type="l", col="blue") 
-
-
 ## Add legend at the top right corner with default line type and box's line; 
-## define some width between the legend's box line and content
-legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), 
-       lty=1, lwd=2, col=c("black", "red", "blue"))
+## with line width of 2 defined
+legend("topright", col=c("black", "red", "blue"), lty=1, lwd=2, 
+       legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
 
-
-## Copy the plot into a png file
-dev.copy(png, file="plot3.png", height=480, width=480) # This function saves and also plots the plot on the Plots window
-dev.off() # close the png file device
+## Close png graphic device
+dev.off()

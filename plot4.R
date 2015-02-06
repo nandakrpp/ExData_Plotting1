@@ -27,19 +27,24 @@ df <- df[df$Date %in% c("1/2/2007","2/2/2007"), ]
 
 
 
-## Convert date and time variables into character variable of 
+## Convert date and time variables into character variables of 
 ## "2007-02-01 00:00:00 GMT" format and contatenate them in a vector
 datetime <- strptime(paste(df$Date, df$Time, sep=" "), "%d/%m/%Y %H:%M:%S")
 
 
 
-## Form a 2 rows-2 columns graphic
+## Open png graphic device
+png("plot4.png", height=480, width=480) # This function saves but not plots the plot on the Plots window
+
+
+
+## Form a 2 rows and 2 columns graphic
 par(mfrow = c(2, 2)) 
 
 
 
 ## Top-left plot -- from plot2.R plus y-axis label defined
-## Plot data from Global_reactive_power on y-asix w/o axis label and datetime  
+## Plot data from Global_reactive_power on y-asix w the axis label and datetime  
 ## on x-axis w/o label
 plot(datetime, df$Global_active_power, type="l", xlab="",
      ylab="Global Active Power") 
@@ -57,8 +62,9 @@ plot(datetime, df$Voltage, type="l", ylab="Voltage")
 plot(datetime, df$Sub_metering_1, type="l", xlab="", ylab="Energy sub metering")
 lines(datetime, df$Sub_metering_2, type="l", col="red") 
 lines(datetime, df$Sub_metering_3, type="l", col="blue") 
-legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), 
-lty=1, lwd=2, bty="n", col=c("black", "red", "blue")) # n value of box type suppresses the box
+legend("topright", col=c("black", "red", "blue"), lty=1, lwd=2, bty="n",
+       legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+
 
 ## Bottom-right plot
 ## Plot Global_reactive_power data on the y-axis with label and datetime of 
@@ -67,6 +73,5 @@ plot(datetime, df$Global_reactive_power, type="l", ylab="Global_reactive_power")
 
 
 
-## Copy the plot into a png file
-dev.copy(png, file="plot4.png", height=480, width=480) # This function saves and also plots the plot on the Plots window
-dev.off() # close the png file device
+## Close png graphic device
+dev.off()
